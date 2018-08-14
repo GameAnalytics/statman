@@ -5,6 +5,7 @@
          get_gauges/0,
          message_stats/0,
          ets_stats/0,
+         os_stats/0,
          gc/1]).
 
 get_counters() ->
@@ -59,3 +60,12 @@ gc(undefined) ->
 gc(PrevNumGCs) ->
     {NumGCs, _, 0} = erlang:statistics(garbage_collection),
     {NumGCs, [{{vm, gcs}, NumGCs - PrevNumGCs}]}.
+
+os_stats() ->
+    {TotalMem, AllocatedMem, {_Pid, WorstProcMem}} = memsup:get_memory_data(),
+    [{{cpu, avg1}, cpu_sup:avg1()},
+     {{cpu, avg5}, cpu_sup:avg5()},
+     {{cpu, avg15}, cpu_sup:avg15()},
+     {{memory, total}, TotalMem},
+     {{memory, allocated}, AllocatedMem},
+     {{memory, worst_proc}, WorstProcMem}].
