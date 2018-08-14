@@ -1,8 +1,11 @@
 %% @doc: Collection of functions for sending statistics from the
-
 -module(statman_vm_metrics).
--compile([export_all]).
 
+-export([get_counters/0,
+         get_gauges/0,
+         message_stats/0,
+         ets_stats/0,
+         gc/1]).
 
 get_counters() ->
     {{input, InputBytes}, {output, OutputBytes}} = erlang:statistics(io),
