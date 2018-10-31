@@ -1,10 +1,10 @@
 % We are now, by default, starting an aggregator (see statman_app.erl).
-% The normal way of running Statman would be to have one aggregator running 
+% The normal way of running Statman would be to have one aggregator running
 % in your VM running Statman. Originally, it was designed so that you could
 % start aggregator processes in a different VM and then add that process to
 % another VM running Statman with statman_server:add_subscriber/2, but this
 % is not a good approach as it does not follow OTP app principles.
--module(statman_agregator_sup).
+-module(statman_aggregator_sup).
 
 -behaviour(supervisor).
 
