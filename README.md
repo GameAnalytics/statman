@@ -157,6 +157,12 @@ You need to run one server under a supervisor in each node. If you
 have a cluster of nodes, you can run the aggregator on just one of
 them, collecting stats for the whole cluster.
 
+UPDATE: The code has been changed to start one aggregator by default.
+This can be overriden by setting the config parameter `start_aggregator`
+to false, and then use the procedure described above. This however, does not
+play well with OTP principles since we are starting application processes under
+another application supervision tree.
+
 
 [statman_elli]: https://github.com/knutin/statman_elli
 [newrelic-erlang]: https://github.com/wooga/newrelic-erlang
