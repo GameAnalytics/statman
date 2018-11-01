@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/GameAnalytics/statman.svg?branch=master)](https://travis-ci.org/GameAnalytics/statman)
 # statman - Statistics man to the rescue!
 
 Statman makes it possible to instrument and collect statistics from
