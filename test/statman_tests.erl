@@ -77,4 +77,5 @@ periodic_gc_test() ->
     statman_histogram:reset(test, statman_histogram:get_data(test)),
     {noreply, State} = statman_server:handle_info({gc, GcInterval}, State),
     ?assertEqual(0, ets:info(statman_histograms, size)),
+    [ets:delete(T) || T <- [statman_counters, statman_gauges, statman_histograms]],
     ok.
