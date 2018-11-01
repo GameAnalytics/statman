@@ -27,17 +27,6 @@ Integration options:
 
 ## Usage
 
-Add `statman_server` to one of your supervisors with the following
-child specification. You can adjust the poll interval to your liking,
-it determines how frequently metrics will be pushed to the
-subscribers:
-
-
-```erlang
-    {statman_server, {statman_server, start_link, [1000]},
-     permanent, 5000, worker, []}.
-```
-
 Statman offers three data types. Here's how to use them:
 
 ```erlang
@@ -172,5 +161,5 @@ another application supervision tree.
 
 [statman_elli]: https://github.com/knutin/statman_elli
 [newrelic-erlang]: https://github.com/wooga/newrelic-erlang
-[statman_graphite]: https://github.com/chrisavl/statman_graphite
+[statman_graphite]: https://github.com/GameAnalytics/statman_graphite
 [hatman]: https://github.com/chrisavl/hatman
