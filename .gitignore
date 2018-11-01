@@ -7,3 +7,4 @@ ebin
 *.plt
 *~
 *#
+erl_crash.dump

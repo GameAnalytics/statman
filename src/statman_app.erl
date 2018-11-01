@@ -17,7 +17,19 @@ start(_StartType, _StartArgs) ->
         false ->
             ok
     end,
+
+    case application:get_env(statman, start_vm_metrics, true) of
+        true ->
+            init_vm_metrics();
+        false ->
+            ok
+    end,
     {ok, Pid}.
 
 stop(_State) ->
     ok.
+
+init_vm_metrics() ->
+    ok = statman_poller:add_gauge(fun statman_vm_metrics:get_gauges/0),
+    ok = statman_poller:add_gauge(fun statman_vm_metrics:os_statss/0),
+    ok = statman_poller:add_counter(fun statman_vm_metrics:get_counters/0).

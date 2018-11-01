@@ -112,6 +112,11 @@ app_setup() ->
 It's important to pass a function reference rather than the function
 itself, to make code upgrades smoother.
 
+Statman also ships with VM / OS metrics defined in `statman_vm_metrics.erl`.
+A poller for all those is started by default. If you prefer to start each of
+them manually or not start them at all, set the configuration variable `start_vm_metrics`
+to false.
+
 ## How does it work
 
 Using `ets:update_counter/3` we get very efficient atomic increments /
