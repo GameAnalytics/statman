@@ -31,5 +31,5 @@ stop(_State) ->
 
 init_vm_metrics() ->
     ok = statman_poller:add_gauge(fun statman_vm_metrics:get_gauges/0),
-    ok = statman_poller:add_gauge(fun statman_vm_metrics:os_statss/0),
+    ok = statman_poller:add_gauge(fun statman_vm_metrics:os_stats/0),
     ok = statman_poller:add_counter(fun statman_vm_metrics:get_counters/0).
