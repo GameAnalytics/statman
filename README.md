@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/GameAnalytics/statman.svg?branch=master)](https://travis-ci.org/GameAnalytics/statman)
 # statman - Statistics man to the rescue!
 
 Statman makes it possible to instrument and collect statistics from
@@ -25,17 +26,6 @@ Integration options:
 
 
 ## Usage
-
-Add `statman_server` to one of your supervisors with the following
-child specification. You can adjust the poll interval to your liking,
-it determines how frequently metrics will be pushed to the
-subscribers:
-
-
-```erlang
-    {statman_server, {statman_server, start_link, [1000]},
-     permanent, 5000, worker, []}.
-```
 
 Statman offers three data types. Here's how to use them:
 
@@ -112,6 +102,11 @@ app_setup() ->
 It's important to pass a function reference rather than the function
 itself, to make code upgrades smoother.
 
+Statman also ships with VM / OS metrics defined in `statman_vm_metrics.erl`.
+A poller for all those is started by default. If you prefer to start each of
+them manually or not start them at all, set the configuration variable `start_vm_metrics`
+to false.
+
 ## How does it work
 
 Using `ets:update_counter/3` we get very efficient atomic increments /
@@ -157,8 +152,14 @@ You need to run one server under a supervisor in each node. If you
 have a cluster of nodes, you can run the aggregator on just one of
 them, collecting stats for the whole cluster.
 
+UPDATE: The code has been changed to start one aggregator by default.
+This can be overriden by setting the config parameter `start_aggregator`
+to false, and then use the procedure described above. This however, does not
+play well with OTP principles since we are starting application processes under
+another application supervision tree.
+
 
 [statman_elli]: https://github.com/knutin/statman_elli
 [newrelic-erlang]: https://github.com/wooga/newrelic-erlang
-[statman_graphite]: https://github.com/chrisavl/statman_graphite
+[statman_graphite]: https://github.com/GameAnalytics/statman_graphite
 [hatman]: https://github.com/chrisavl/hatman

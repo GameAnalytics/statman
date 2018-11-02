@@ -1,9 +1,9 @@
 .eunit
-deps
+_build/
 priv
-ebin
 *.o
 *.beam
 *.plt
 *~
 *#
+erl_crash.dump

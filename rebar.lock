@@ -1,0 +1,8 @@
+[{<<"decorators">>,
+  {git,"git://github.com/chrisavl/erlang_decorators.git",
+       {ref,"b14949efc938157604447adc29a71913298fe67f"}},
+  0},
+ {<<"parse_trans">>,
+  {git,"git://github.com/uwiger/parse_trans.git",
+       {ref,"76abb347c3c1d00fb0ccf9e4b43e22b3d2288484"}},
+  1}].
