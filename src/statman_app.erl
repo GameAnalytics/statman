@@ -11,13 +11,6 @@
 
 start(_StartType, _StartArgs) ->
     {ok, Pid} = statman_sup:start_link([1000]),
-    case application:get_env(statman, start_aggregator, true) of
-        true ->
-            statman_aggregator_sup:add_worker(statman_aggregator);
-        false ->
-            ok
-    end,
-
     case application:get_env(statman, start_vm_metrics, true) of
         true ->
             init_vm_metrics();
