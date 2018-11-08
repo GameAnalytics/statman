@@ -34,14 +34,7 @@ add_worker(WorkerName) ->
 %%%===================================================================
 
 init([]) ->
-    Children =
-    case application:get_env(statman, start_aggregator, true) of
-        true ->
-            [worker_spec(statman_aggregator)];
-        false ->
-            []
-    end,
-    {ok, {{one_for_one, 5, 10}, Children}}.
+    {ok, {{one_for_one, 5, 10}, []}}.
 
 worker_spec(Name) ->
     {Name, {statman_aggregator, start_link, []},
