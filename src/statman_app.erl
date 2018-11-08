@@ -17,6 +17,13 @@ start(_StartType, _StartArgs) ->
         false ->
             ok
     end,
+    case application:get_env(statman, start_aggregator, true) of
+        true ->
+            {ok, _} = statman_aggregator_sup:add_worker(statman_aggregator),
+            ok = statman_server:add_subscriber(statman_aggregator);
+        false ->
+            ok
+    end,
     {ok, Pid}.
 
 stop(_State) ->
