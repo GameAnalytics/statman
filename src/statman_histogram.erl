@@ -5,6 +5,7 @@
 
 -module(statman_histogram).
 -export([init/0,
+         record_time_diff/2,
          record_value/2,
          run/2,
          run/3,
@@ -16,7 +17,8 @@
          reset/2,
          gc/0]).
 
--export([bin/1]).
+-export([bin/1,
+         ts/0]).
 
 -compile([native]).
 
@@ -31,34 +33,33 @@ init() ->
     ets:new(?TABLE, [named_table, public, set, {write_concurrency, true}]),
     ok.
 
-record_value(UserKey, {MegaSecs, Secs, MicroSecs}) when
-      is_integer(MegaSecs) andalso MegaSecs >= 0 andalso
-      is_integer(Secs) andalso Secs >=0 andalso
-      is_integer(MicroSecs) andalso MicroSecs >= 0 ->
-    record_value(UserKey,
-                 bin(timer:now_diff(now(), {MegaSecs, Secs, MicroSecs})));
+record_time_diff(UserKey, StartTimeStamp) ->
+    record_value(UserKey, bin(ts() - StartTimeStamp)).
 
 record_value(UserKey, Value) when is_integer(Value) ->
     histogram_incr({UserKey, Value}, 1),
     ok.
 
+-spec ts() -> integer().
+ts() ->
+  erlang:monotonic_time(microsecond).
 
 run(Key, F) ->
-    Start = os:timestamp(),
+    Start = ts(),
     Result = F(),
-    record_value(Key, Start),
+    record_time_diff(Key, Start),
     Result.
 
 run(Key, F, Args) ->
-    Start = os:timestamp(),
+    Start = ts(),
     Result = erlang:apply(F, Args),
-    record_value(Key, Start),
+    record_time_diff(Key, Start),
     Result.
 
 run(Key, M, F, Args) ->
-    Start = os:timestamp(),
+    Start = ts(),
     Result = erlang:apply(M, F, Args),
-    record_value(Key, Start),
+    record_time_diff(Key, Start),
     Result.
 
 

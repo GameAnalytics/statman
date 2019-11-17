@@ -73,7 +73,7 @@ periodic_gc_test() ->
     receive
         {gc, GcInterval} -> ok
     end,
-    statman_histogram:record_value(test, os:timestamp()),
+    statman_histogram:record_time_diff(test, statman_histogram:ts()),
     statman_histogram:reset(test, statman_histogram:get_data(test)),
     {noreply, State} = statman_server:handle_info({gc, GcInterval}, State),
     ?assertEqual(0, ets:info(statman_histograms, size)),
