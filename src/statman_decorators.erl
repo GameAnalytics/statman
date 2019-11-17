@@ -11,9 +11,9 @@
 
 runtime(Fun, Args, Options) ->
     Key = proplists:get_value(key, Options, name(Fun)),
-    Start = os:timestamp(),
+    Start = statman_histogram:ts(),
     Result = erlang:apply(Fun, Args),
-    statman_histogram:record_value(Key, Start),
+    statman_histogram:record_time_diff(Key, Start),
     Result.
 
 reductions(Fun, Args, Options) ->

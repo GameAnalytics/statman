@@ -155,15 +155,16 @@ benchmark() ->
     do_benchmark(32, 100000).
 
 do_benchmark(Processes, Writes) ->
-    Start = now(),
+    Start = erlang:monotonic_time(microsecond),
     Parent = self(),
     Pids = [spawn(fun() ->
                           benchmark_incrementer(foo, Writes),
                           Parent ! {self(), done}
                   end) || _ <- lists:seq(1, Processes)],
     receive_all(Pids, done),
+    End = erlang:monotonic_time(microsecond),
     error_logger:info_msg("~p processes, ~p writes in ~p ms~n",
-                          [Processes, Writes, timer:now_diff(now(), Start) / 1000]),
+                          [Processes, Writes, (End - Start) / 1000]),
     ok.
 
 receive_all([], _) ->
