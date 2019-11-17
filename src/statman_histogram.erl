@@ -304,8 +304,7 @@ test_keys() ->
 
 
 test_binning() ->
-    random:seed({1, 2, 3}),
-    Values = [random:uniform(1000000) || _ <- lists:seq(1, 1000)],
+    Values = [rand:uniform(1000000) || _ <- lists:seq(1, 1000)],
 
     [record_value(foo, V) || V <- Values],
     _NormalSummary = summary(get_data(foo)),

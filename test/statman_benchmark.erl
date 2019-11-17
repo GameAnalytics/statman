@@ -20,5 +20,5 @@ do_histogram_run(Writes) ->
 pareto(Mean, Shape) ->
     S1 = (-1 / Shape),
     S2 = Mean * (Shape - 1),
-    U = 1 - random:uniform(),
+    U = 1 - rand:uniform(),
     trunc((math:pow(U, S1) - 1) * S2).
