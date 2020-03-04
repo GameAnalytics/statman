@@ -60,13 +60,8 @@ incr(Key, Incr) when is_integer(Incr) ->
     %% use multiple keys and try to snapshot a value across all
     %% subkeys. See
     %% https://github.com/boundary/high-scale-lib/blob/master/src/main/java/org/cliffc/high_scale_lib/ConcurrentAutoTable.java
-    case catch ets:update_counter(?TABLE, Key, Incr) of
-        {'EXIT', {badarg, _}} ->
-            (catch ets:insert(?TABLE, {Key, Incr})),
-            ok;
-        _ ->
-            ok
-    end;
+    ets:update_counter(?TABLE, Key, Incr, {Key, 0}),
+    ok;
 
 incr(_Key, Float) when is_float(Float) ->
     error(badarg).

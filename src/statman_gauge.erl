@@ -23,12 +23,13 @@ decr(Key, Decr) -> incr(Key, -Decr).
 
 
 incr(Key, Incr) ->
-    case catch ets:update_counter(?TABLE, Key, {3, Incr}) of
-        {'EXIT', {badarg, _}} ->
-            set(Key, Incr),
-            ok;
+    try ets:update_counter(?TABLE, Key, {3, Incr}) of
         _ ->
             ets:update_element(?TABLE, Key, {2, now_to_seconds()}),
+            ok
+    catch
+        error:badarg ->
+            set(Key, Incr),
             ok
     end.
 
