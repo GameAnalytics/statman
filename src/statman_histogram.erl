@@ -1,4 +1,4 @@
-%% @doc: Histogram backed by ETS and ets:update_counter/3.
+%% @doc: Histogram backed by ETS and ets:update_counter/4.
 %%
 %% Calculation of statistics is borrowed from basho_stats_histogram
 %% and basho_stats_sample.
@@ -156,13 +156,8 @@ sd(N, Sum, Sum2) ->
 
 
 histogram_incr(Key, Incr) ->
-    case catch ets:update_counter(?TABLE, Key, Incr) of
-        {'EXIT', {badarg, _}} ->
-            (catch ets:insert(?TABLE, {Key, Incr})),
-            ok;
-        _ ->
-            ok
-    end.
+    ets:update_counter(?TABLE, Key, Incr, {Key, 0}),
+    ok.
 
 find_quantile(Freqs, NeededSamples) ->
     find_quantile(Freqs, 0, NeededSamples).
