@@ -20,8 +20,6 @@
 -export([bin/1,
          ts/0]).
 
--compile([native]).
-
 -define(TABLE, statman_histograms).
 
 
