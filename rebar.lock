@@ -1,8 +1,8 @@
-[{<<"decorators">>,
-  {git,"git://github.com/chrisavl/erlang_decorators.git",
-       {ref,"b14949efc938157604447adc29a71913298fe67f"}},
-  0},
- {<<"parse_trans">>,
-  {git,"git://github.com/uwiger/parse_trans.git",
-       {ref,"76abb347c3c1d00fb0ccf9e4b43e22b3d2288484"}},
-  1}].
+{"1.1.0",
+[{<<"decorators">>,{pkg,<<"decorators">>,<<"0.1.0">>},0},
+ {<<"parse_trans">>,{pkg,<<"parse_trans">>,<<"3.3.1">>},0}]}.
+[
+{pkg_hash,[
+ {<<"decorators">>, <<"1F4FD3682DE23C6BCE769201613812F5EAF809310A27E35DDBFD91E53B126267">>},
+ {<<"parse_trans">>, <<"16328AB840CC09919BD10DAB29E431DA3AF9E9E7E7E6F0089DD5A2D2820011D8">>}]}
+].
